@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title>Users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th> First name </th>
+        <th> Last name </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${users.empty}">
+        <td colspan="2"> No Books Available</td>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td><span th:text="${user.firstName}"> First name </span></td>
+        <td><span th:text="${user.lastName}"> Last name </span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
