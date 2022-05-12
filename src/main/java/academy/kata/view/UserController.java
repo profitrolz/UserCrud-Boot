@@ -41,6 +41,7 @@ public class UserController {
     @GetMapping("/delete")
     public String deleteUser(@RequestParam Optional<Integer> id, Map<String, Object> model) {
         id.ifPresent(userService::deleteById);
+        System.out.println();
         return "redirect:/";
     }
 
