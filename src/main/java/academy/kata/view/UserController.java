@@ -1,6 +1,7 @@
 package academy.kata.view;
 
 import academy.kata.model.User;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,11 +31,11 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/createUser")
     public String showForm(Map<String, Object> model) {
         model.put("user", new User());
         model.put("add", true);
-        return "user";
+        return "user_action";
     }
 
     @GetMapping("/delete")
@@ -44,9 +45,16 @@ public class UserController {
     }
 
     @GetMapping("/update")
-    public String showFormUpdateUser(@RequestParam Optional<Integer> id, Model model) {
-        model.addAttribute("user", userService.findById(id.orElseThrow(IllegalArgumentException::new)));
-        return "user_update";
+    public String showFormUpdateUser(@RequestParam Optional<Long> id, Model model) throws ChangeSetPersister.NotFoundException {
+        model.addAttribute("user", userService.findById(id.orElseThrow(IllegalArgumentException::new)).orElseThrow(ChangeSetPersister.NotFoundException::new));
+        model.addAttribute("add", false);
+        return "user_action";
+    }
+
+    @GetMapping("/viewUser")
+    public String showUserForm(@RequestParam Optional<Long> id, Model model) throws ChangeSetPersister.NotFoundException {
+        model.addAttribute("user", userService.findById(id.orElseThrow(IllegalArgumentException::new)).orElseThrow(ChangeSetPersister.NotFoundException::new));
+        return "user";
     }
 
     @PostMapping("/updateUser")

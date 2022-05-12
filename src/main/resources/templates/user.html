@@ -1,16 +1,15 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title th:text="${add} ? 'Create a Contact' : 'Edit a Contact'" />
+    <meta charset="UTF-8">
+    <title>View contact</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
 </head>
 <body>
-<h1 th:text="${add} ? 'Create a Contact:' : 'Edit a Contact:'" />
+<h1 th:text="'View a Contact:'" />
 <a th:href="@{/}">Back to Contact List</a>
 <br/><br/>
-<form th:action="${add} ? @{/save} : @{/save(id=${user.id})}"
-      th:object="${user}" method="POST">
     <table border="0">
         <tr th:if="${user.id}">
             <td>ID</td>
@@ -20,18 +19,22 @@
         <tr>
             <td>First name</td>
             <td>:</td>
-            <td><input type="text" th:field="*{firstName}" /></td>
+            <td th:utext="${user.firstName}">...</td>
         </tr>
         <tr>
-            <td>Last name</td>
+            <td>First name</td>
             <td>:</td>
-            <td><input type="text" th:field="*{lastName}" /></td>
+            <td th:utext="${user.lastName}">...</td>
         </tr>
     </table>
-    <input type="submit" th:value="${add} ? 'Create' : 'Update'" />
 </form>
+<div>
+    <a th:href="@{/delete(id=${user.id})}">Delete</a> |
+    <a th:href="@{/update(id=${user.id})}">Update</a>
+</div>
 
 <br/>
 <!-- Check if errorMessage is not null and not empty -->
+</body>
 </body>
 </html>
