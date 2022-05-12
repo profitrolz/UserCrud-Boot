@@ -33,6 +33,7 @@ public class UserController {
     @GetMapping("/user")
     public String showForm(Map<String, Object> model) {
         model.put("user", new User());
+        model.put("add", true);
         return "user";
     }
 
