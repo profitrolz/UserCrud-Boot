@@ -1,5 +1,6 @@
 package academy.kata.view;
 
+import academy.kata.exception.UserControllerException;
 import academy.kata.model.User;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
@@ -62,4 +63,10 @@ public class UserController {
         userService.update(user);
         return "redirect:/";
     }
+
+    @GetMapping("/exception")
+    public void getException(){
+        throw new UserControllerException("Controller exception");
+    }
+
 }
