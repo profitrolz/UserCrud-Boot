@@ -1,5 +1,6 @@
 package academy.kata.usercrudboot;
 
+import academy.kata.UserCrudBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 

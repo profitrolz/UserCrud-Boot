@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View contact</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
+</head>
+<body>
+<h1 th:text="'View a Contact:'" />
+<a th:href="@{/}">Back to Contact List</a>
+<br/><br/>
+    <table border="0">
+        <tr th:if="${user.id}">
+            <td>ID</td>
+            <td>:</td>
+            <td th:utext="${user.id}">...</td>
+        </tr>
+        <tr>
+            <td>First name</td>
+            <td>:</td>
+            <td th:utext="${user.firstName}">...</td>
+        </tr>
+        <tr>
+            <td>First name</td>
+            <td>:</td>
+            <td th:utext="${user.lastName}">...</td>
+        </tr>
+    </table>
+</form>
+<div>
+    <a th:href="@{/delete(id=${user.id})}">Delete</a> |
+    <a th:href="@{/update(id=${user.id})}">Update</a>
+</div>
+
+<br/>
+<!-- Check if errorMessage is not null and not empty -->
+</body>
+</body>
+</html>

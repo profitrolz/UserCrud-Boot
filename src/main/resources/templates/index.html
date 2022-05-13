@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title>Users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Contact List</h1>
+<div>
+    <nobr>
+        <a th:href="@{/createUser}">Add User</a>
+    </nobr>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th> First name </th>
+        <th> Last name </th>
+        <th> Edit </th>
+        <th> View </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${users.empty}">
+        <td colspan="2"> No Users Available</td>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td><span th:text="${user.firstName}"> First name </span></td>
+        <td><span th:text="${user.lastName}"> Last name </span></td>
+        <td><a th:href="@{/update(id=${user.id})}">Edit</a> </td>
+        <td><a th:href="@{/viewUser(id=${user.id})}">View</a> </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
