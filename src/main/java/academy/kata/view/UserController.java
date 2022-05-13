@@ -1,13 +1,18 @@
 package academy.kata.view;
 
 import academy.kata.exception.UserControllerException;
+import academy.kata.exception.UserNotFoundException;
 import academy.kata.model.User;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import academy.kata.service.UserService;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -53,8 +58,9 @@ public class UserController {
     }
 
     @GetMapping("/viewUser")
-    public String showUserForm(@RequestParam Optional<Long> id, Model model) throws ChangeSetPersister.NotFoundException {
-        model.addAttribute("user", userService.findById(id.orElseThrow(IllegalArgumentException::new)).orElseThrow(ChangeSetPersister.NotFoundException::new));
+    public String showUserForm(@RequestParam Optional<Long> id, Model model) {
+        model.addAttribute("user", userService.findById(id.orElseThrow(IllegalArgumentException::new))
+                .orElseThrow(UserNotFoundException::new));
         return "user";
     }
 
@@ -67,6 +73,18 @@ public class UserController {
     @GetMapping("/exception")
     public void getException(){
         throw new UserControllerException("Controller exception");
+    }
+
+    @ExceptionHandler(value = UserNotFoundException.class)
+    public ModelAndView handleApiRequestException (HttpServletRequest req, Exception exception) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", exception);
+        mav.addObject("url", req.getRequestURL());
+        mav.addObject("timestamp", LocalDate.now());
+        mav.addObject("status", HttpStatus.NOT_FOUND);
+        mav.addObject("error", "User not found");
+        mav.setViewName("errorPage");
+        return mav;
     }
 
 }
