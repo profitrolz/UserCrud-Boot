@@ -41,7 +41,7 @@ public class AdminController {
         return "user_action";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/deleteUser")
     public String deleteUser(@RequestParam Optional<Integer> id, Map<String, Object> model) {
         id.ifPresent(userService::deleteById);
         return "redirect:/admin";
