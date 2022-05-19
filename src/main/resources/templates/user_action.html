@@ -13,9 +13,7 @@
       th:object="${user}" method="POST">
     <table border="0">
         <tr th:if="${user.id}">
-            <td>ID</td>
-            <td>:</td>
-            <td th:utext="${user.id}">...</td>
+            <td><input type="hidden" th:field="*{id}" /></td>
         </tr>
         <tr>
             <td>First name</td>
