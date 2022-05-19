@@ -13,8 +13,7 @@
 <div sec:authorize="hasRole('ROLE_ADMIN')">
     <a th:href="@{/admin}">Back to Contact List</a>
 </div>
-
-<br/><br/>
+<br/>
     <table border="0">
         <tr th:if="${user.id}">
             <td>ID</td>
@@ -33,7 +32,7 @@
         </tr>
     </table>
 </form>
-<br/><br/>
+<br/>
 <div th:replace="footer :: footer"></div>
 </body>
 </html>

@@ -3,6 +3,7 @@ package academy.kata.service;
 
 import academy.kata.dao.RoleRepo;
 import academy.kata.dao.UserDao;
+import academy.kata.exception.LoginAlreadyExistException;
 import academy.kata.model.User;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -29,7 +30,7 @@ public class UserService implements UserDetailsService {
 
     public void save(User user) {
         if(userDao.findUserByLogin(user.getLogin()).isPresent()) {
-            throw new RuntimeException("User already exist");
+            throw new LoginAlreadyExistException();
         }
 
         user.setRoles(Set.of(roleRepo.findById(2L).orElseThrow()));

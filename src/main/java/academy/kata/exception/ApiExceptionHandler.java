@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class ApiExceptionHandler {
 
     @ExceptionHandler(value = UserNotFoundException.class)
-    public ModelAndView handleUserNotFoundException (HttpServletRequest req, Exception exception) {
+    public ModelAndView handleUserNotFoundException(HttpServletRequest req, Exception exception) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", exception);
         mav.addObject("url", req.getRequestURL());
@@ -24,7 +24,7 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(value = IllegalArgumentException.class)
-    public ModelAndView handleIllegalArgumentException (HttpServletRequest req, Exception exception) {
+    public ModelAndView handleIllegalArgumentException(HttpServletRequest req, Exception exception) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", exception);
         mav.addObject("url", req.getRequestURL());
@@ -36,7 +36,7 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(value = Exception.class)
-    public ModelAndView handleException (HttpServletRequest req, Exception exception) {
+    public ModelAndView handleException(HttpServletRequest req, Exception exception) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", exception);
         mav.addObject("url", req.getRequestURL());
@@ -47,4 +47,15 @@ public class ApiExceptionHandler {
         return mav;
     }
 
+    @ExceptionHandler(value = LoginAlreadyExistException.class)
+    public ModelAndView handleLoginAlreadyExistException(HttpServletRequest req, Exception exception) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", exception);
+        mav.addObject("url", req.getRequestURL());
+        mav.addObject("timestamp", LocalDate.now());
+        mav.addObject("status", HttpStatus.BAD_REQUEST);
+        mav.addObject("error", "Login already exist");
+        mav.setViewName("errorPage");
+        return mav;
+    }
 }
