@@ -8,7 +8,7 @@
 <h1>Contact List</h1>
 <div>
     <nobr>
-        <a th:href="@{/createUser}">Add User</a>
+        <a th:href="@{/admin/createUser}">Add User</a>
     </nobr>
 </div>
 <table>
@@ -17,6 +17,7 @@
         <th> First name </th>
         <th> Last name </th>
         <th> Edit </th>
+        <th> Delete </th>
         <th> View </th>
     </tr>
     </thead>
@@ -27,10 +28,13 @@
     <tr th:each="user : ${users}">
         <td><span th:text="${user.firstName}"> First name </span></td>
         <td><span th:text="${user.lastName}"> Last name </span></td>
-        <td><a th:href="@{/update(id=${user.id})}">Edit</a> </td>
-        <td><a th:href="@{/viewUser(id=${user.id})}">View</a> </td>
+        <td><a th:href="@{/admin/updateUser(id=${user.id})}">Edit</a> </td>
+        <td><a th:href="@{/admin/delete(id=${user.id})}">Delete</a> </td>
+        <td><a th:href="@{/admin/viewUser(id=${user.id})}">View</a> </td>
     </tr>
     </tbody>
 </table>
+<br/><br/>
+<div th:replace="footer :: footer"></div>
 </body>
 </html>

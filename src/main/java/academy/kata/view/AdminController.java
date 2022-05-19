@@ -12,25 +12,20 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(path = "admin")
+@RequestMapping("admin")
 public class AdminController {
     private final UserService userService;
 
-    public AdminController(UserService crud) {
-        this.userService = crud;
+    public AdminController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public String getUsers(Model model) {
         model.addAttribute("users", userService.findAll());
         return "admin";
     }
 
-    @PostMapping(value = "/save")
-    public String save(@ModelAttribute("user") User user) {
-        userService.save(user);
-        return "redirect:/";
-    }
 
     @GetMapping("/createUser")
     public String showForm(Map<String, Object> model) {
@@ -39,17 +34,17 @@ public class AdminController {
         return "user_action";
     }
 
-    @GetMapping("/delete")
-    public String deleteUser(@RequestParam Optional<Integer> id, Map<String, Object> model) {
-        id.ifPresent(userService::deleteById);
-        return "redirect:/";
-    }
-
-    @GetMapping("/update")
+    @GetMapping("/updateUser")
     public String showFormUpdateUser(@RequestParam Optional<Long> id, Model model) throws ChangeSetPersister.NotFoundException {
         model.addAttribute("user", userService.findById(id.orElseThrow(IllegalArgumentException::new)).orElseThrow(ChangeSetPersister.NotFoundException::new));
         model.addAttribute("add", false);
         return "user_action";
+    }
+
+    @GetMapping("/delete")
+    public String deleteUser(@RequestParam Optional<Integer> id, Map<String, Object> model) {
+        id.ifPresent(userService::deleteById);
+        return "redirect:/admin";
     }
 
     @GetMapping("/viewUser")
@@ -59,9 +54,15 @@ public class AdminController {
         return "user";
     }
 
-    @PostMapping("/updateUser")
+    @PostMapping(value = "/save")
+    public String save(@ModelAttribute("user") User user) {
+        userService.save(user);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/update")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.update(user);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 }

@@ -7,9 +7,9 @@
 </head>
 <body>
 <h1 th:text="${add} ? 'Create a Contact:' : 'Edit a Contact:'" />
-<a th:href="@{/}">Back to Contact List</a>
+<a th:href="@{/admin}">Back to Contact List</a>
 <br/><br/>
-<form th:action="${add} ? @{/save} : @{/save(id=${user.id})}"
+<form th:action="${add} ? @{/admin/save} : @{/admin/update}"
       th:object="${user}" method="POST">
     <table border="0">
         <tr th:if="${user.id}">
@@ -27,11 +27,20 @@
             <td>:</td>
             <td><input type="text" th:field="*{lastName}" /></td>
         </tr>
+        <tr>
+            <td>Login</td>
+            <td>:</td>
+            <td><input type="text" th:field="*{login}" /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td>:</td>
+            <td><input type="text" th:field="*{password}" /></td>
+        </tr>
     </table>
     <input type="submit" th:value="${add} ? 'Create' : 'Update'" />
 </form>
 
 <br/>
-<!-- Check if errorMessage is not null and not empty -->
 </body>
 </html>

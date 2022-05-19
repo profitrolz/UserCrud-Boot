@@ -26,12 +26,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(path = "{userLogin}")
-    public String userView(@PathVariable("userLogin") String userLogin, Model model) {
-        model.addAttribute("user", userService.findUserByLogin(userLogin)
+    @GetMapping
+    public String userView(Model model) {
+        model.addAttribute("user", userService.getCurrentUser()
                 .orElseThrow(UserNotFoundException::new));
         return "user";
     }
-
 
 }

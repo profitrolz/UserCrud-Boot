@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>View contact</title>
@@ -8,7 +9,11 @@
 </head>
 <body>
 <h1 th:text="'View a Contact:'" />
-<a th:href="@{/}">Back to Contact List</a>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <a th:href="@{/admin}">Back to Contact List</a>
+</div>
+
 <br/><br/>
     <table border="0">
         <tr th:if="${user.id}">
@@ -28,13 +33,7 @@
         </tr>
     </table>
 </form>
-<div>
-    <a th:href="@{/delete(id=${user.id})}">Delete</a> |
-    <a th:href="@{/update(id=${user.id})}">Update</a>
-</div>
-
-<br/>
-<!-- Check if errorMessage is not null and not empty -->
-</body>
+<br/><br/>
+<div th:replace="footer :: footer"></div>
 </body>
 </html>
