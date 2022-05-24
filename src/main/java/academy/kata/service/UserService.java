@@ -5,7 +5,6 @@ import academy.kata.dao.RoleRepo;
 import academy.kata.dao.UserDao;
 import academy.kata.exception.LoginAlreadyExistException;
 import academy.kata.model.User;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +22,7 @@ public class UserService implements UserDetailsService {
     private final UserDao userDao;
     private final RoleRepo roleRepo;
 
-    public UserService(@Qualifier("userDao") UserDao userDao, RoleRepo roleRepo) {
+    public UserService(UserDao userDao, RoleRepo roleRepo) {
         this.userDao = userDao;
         this.roleRepo = roleRepo;
     }
@@ -57,13 +56,15 @@ public class UserService implements UserDetailsService {
         userDao.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public Optional<User> findUserByLogin(String login) {
         return userDao.findUserByLogin(login);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userDao.findUserByLogin(username).orElseThrow(() -> new UsernameNotFoundException("Login not found"));
+        User user =  userDao.findUserByLogin(username).orElseThrow(() -> new UsernameNotFoundException("Login not found"));
+        return user;
     }
 
     public Optional<User> getCurrentUser(){

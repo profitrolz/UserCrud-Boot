@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Column
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private Set<Role> roles;
 
     @Override
