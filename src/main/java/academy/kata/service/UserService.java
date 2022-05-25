@@ -32,7 +32,6 @@ public class UserService implements UserDetailsService {
             throw new LoginAlreadyExistException();
         }
 
-        user.setRoles(Set.of(roleRepo.findById(2L).orElseThrow()));
         userDao.save(user);
     }
 
@@ -56,7 +55,6 @@ public class UserService implements UserDetailsService {
         userDao.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
     public Optional<User> findUserByLogin(String login) {
         return userDao.findUserByLogin(login);
     }

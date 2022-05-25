@@ -1,5 +1,6 @@
 package academy.kata.view;
 
+import academy.kata.dao.RoleRepo;
 import academy.kata.exception.UserNotFoundException;
 import academy.kata.model.User;
 import academy.kata.service.UserService;
@@ -15,14 +16,19 @@ import java.util.Optional;
 @RequestMapping("admin")
 public class AdminController {
     private final UserService userService;
+    private final RoleRepo roleRepo;
 
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, RoleRepo roleRepo) {
         this.userService = userService;
+        this.roleRepo = roleRepo;
     }
 
     @GetMapping()
     public String getUsers(Model model) {
         model.addAttribute("users", userService.findAll());
+        model.addAttribute("roles", roleRepo.findAll());
+        model.addAttribute("user", new User());
+
         return "admin";
     }
 
