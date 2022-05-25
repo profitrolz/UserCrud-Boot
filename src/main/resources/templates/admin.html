@@ -206,19 +206,18 @@
 
 <script>
 $(document).ready(function () {
-    $('editUser').on('shown.bs.modal', function (e) {
-        // let userId = $(e.relatedTarget).data('id');
-        alert("hi");
-        // let cols = $('#' + userId + ' td');
-        // let firstName = $(cols[1]).text();
-        // let lastName = $(cols[2]).text();
-        // let login = $(cols[3]).text();
-        // let password = $(cols[4]).text();
+    $('#editUser').on('shown.bs.modal', function (e) {
+        let userId = $(e.relatedTarget).data('id');
+        let cols = $('#' + userId + ' td');
+        let firstName = $(cols[1]).text();
+        let lastName = $(cols[2]).text();
+        let login = $(cols[3]).text();
+        let password = $(cols[4]).text();
 
         $('#formGroupFirstnameEdit').val('fname');
-        // $('#formGroupLastnameEdit').val(lastName);
-        // $('#formGroupLoginEdit').val(login);
-        // $('#formGroupPassEdit').val(password);
+        $('#formGroupLastnameEdit').val(lastName);
+        $('#formGroupLoginEdit').val(login);
+        $('#formGroupPassEdit').val(password);
     })
     $('.open-modal').click(function(){
         $('#editUser').modal('show');
