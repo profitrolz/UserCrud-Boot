@@ -32,21 +32,6 @@ public class AdminController {
         return "admin";
     }
 
-
-    @GetMapping("/createUser")
-    public String showForm(Map<String, Object> model) {
-        model.put("user", new User());
-        model.put("add", true);
-        return "user_action";
-    }
-
-    @GetMapping("/updateUser")
-    public String showFormUpdateUser(@RequestParam Optional<Long> id, Model model) throws ChangeSetPersister.NotFoundException {
-        model.addAttribute("user", userService.findById(id.orElseThrow(IllegalArgumentException::new)).orElseThrow(ChangeSetPersister.NotFoundException::new));
-        model.addAttribute("add", false);
-        return "user_action";
-    }
-
     @GetMapping("/deleteUser")
     public String deleteUser(@RequestParam Optional<Integer> id, Map<String, Object> model) {
         id.ifPresent(userService::deleteById);
