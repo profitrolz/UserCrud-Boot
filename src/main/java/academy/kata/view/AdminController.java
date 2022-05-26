@@ -28,7 +28,7 @@ public class AdminController {
         model.addAttribute("users", userService.findAll());
         model.addAttribute("roles", roleRepo.findAll());
         model.addAttribute("user", new User());
-
+        model.addAttribute("currentUser", userService.getCurrentUser().orElseThrow(UserNotFoundException::new));
         return "admin";
     }
 
