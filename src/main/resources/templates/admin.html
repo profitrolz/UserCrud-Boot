@@ -290,11 +290,10 @@
                                 <strong><label for="FormRoleSelect">Role</label></strong>
                                 <select multiple class="form-control" id="FormRoleSelect"
                                         th:field="*{roles}">
-                                    <tr th:each="role : ${roles}">
-                                        <option th:value="${role.id}"><span
-                                                th:text="${role.getName()}"></span>
-                                        </option>
-                                    </tr>
+                                    <option th:each="role : ${roles}"
+                                        th:value="${role.id}"
+                                                th:text="${role.getName()}">
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -374,7 +373,7 @@
                                     <strong><label for="FormRoleSelectDelete">Role</label></strong>
                                     <select multiple class="form-control" id="FormRoleSelectDelete"
                                             th:field="*{roles}" readonly>
-                                        <tr th:each="role : ${user.getRoles()}">
+                                        <tr th:each="role : ${roles}">
                                             <option th:value="${role.id}"><span th:text="${role.getName()}"></span>
                                             </option>
                                         </tr>

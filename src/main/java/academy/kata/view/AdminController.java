@@ -3,8 +3,8 @@ package academy.kata.view;
 import academy.kata.dao.RoleRepo;
 import academy.kata.exception.UserNotFoundException;
 import academy.kata.model.User;
+import academy.kata.service.RoleService;
 import academy.kata.service.UserService;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,17 +16,17 @@ import java.util.Optional;
 @RequestMapping("admin")
 public class AdminController {
     private final UserService userService;
-    private final RoleRepo roleRepo;
+    private final RoleService roleService;
 
-    public AdminController(UserService userService, RoleRepo roleRepo) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
-        this.roleRepo = roleRepo;
+        this.roleService = roleService;
     }
 
     @GetMapping()
     public String getUsers(Model model) {
         model.addAttribute("users", userService.findAll());
-        model.addAttribute("roles", roleRepo.findAll());
+        model.addAttribute("roles", roleService.findAll());
         model.addAttribute("user", new User());
         model.addAttribute("currentUser", userService.getCurrentUser().orElseThrow(UserNotFoundException::new));
         return "admin";
