@@ -15,7 +15,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @Query("select user from User user join fetch user.roles where user.login = :login")
     Optional<User> findUserByLogin(String login);
 
-    @Query("select user from User user join fetch user.roles")
+//    @Query("from User user join fetch user.roles")
     List<User> findAll();
 
     List<User> findAllByRoles(Role role);
