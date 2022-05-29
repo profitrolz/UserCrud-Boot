@@ -6,6 +6,7 @@ import academy.kata.model.User;
 import academy.kata.service.RoleService;
 import academy.kata.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class AdminController {
         model.addAttribute("users", userService.findAll());
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("user", new User());
-        model.addAttribute("currentUser", userService.getCurrentUser().orElseThrow(UserNotFoundException::new));
+        model.addAttribute("currentUser", userService.getCurrentUser());
         return "admin";
     }
 

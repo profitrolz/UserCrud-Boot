@@ -28,8 +28,7 @@ public class UserController {
 
     @GetMapping
     public String userView(Model model) {
-        model.addAttribute("currentUser", userService.getCurrentUser()
-                .orElseThrow(UserNotFoundException::new));
+        model.addAttribute("currentUser", userService.getCurrentUser());
         return "user";
     }
 
