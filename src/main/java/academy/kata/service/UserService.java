@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -62,16 +63,14 @@ public class UserService implements UserDetailsService {
     public void deleteById(long id) {
         userRepo.deleteById(id);
     }
-
-    @Transactional
     public User findUserByLogin(String login) {
         User user = userRepo.findUserByLogin(login)
                 .orElseThrow(() -> new UsernameNotFoundException("Login not found"));
-        Hibernate.initialize(user);
-        System.out.println(user.getRoles());
+        Hibernate.initialize(user.getRoles());
         return user;
     }
 
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findUserByLogin(username);
