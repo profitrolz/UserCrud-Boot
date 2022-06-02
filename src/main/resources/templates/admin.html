@@ -224,48 +224,42 @@
             </div>
             <div class="modal-body">
 
-                <form th:action="@{/admin/update}"
-                      th:object="${user}" method="POST">
+                <form>
                     <div class="container col-9 text-center">
                         <div class="form-group text-center">
 
                             <div class="col bg-white text-center">
                                 <strong><label for="formGroupIdEdit">ID</label></strong>
                                 <input type="number" class="form-control" id="formGroupIdEdit"
-                                       placeholder=""
-                                       th:field="*{id}" readonly/>
+                                       placeholder=""/>
                             </div>
                             </br>
 
                             <div class="col bg-white text-center">
                                 <strong><label for="formGroupFirstnameEdit">First name</label></strong>
                                 <input type="text" class="form-control" id="formGroupFirstnameEdit"
-                                       placeholder=""
-                                       th:field="*{firstName}"/>
+                                       placeholder=""/>
                             </div>
                             </br>
 
                             <div class="col bg-white text-center">
                                 <strong><label for="formGroupLastnameEdit">Last name</label></strong>
                                 <input type="text" class="form-control" id="formGroupLastnameEdit"
-                                       placeholder=""
-                                       th:field="*{lastName}"/>
+                                       placeholder=""/>
                             </div>
                             </br>
 
                             <div class="col bg-white text-center">
                                 <strong><label for="formGroupLoginEdit">Login</label></strong>
                                 <input type="text" class="form-control" id="formGroupLoginEdit"
-                                       placeholder=""
-                                       th:field="*{login}"/>
+                                       placeholder=""/>
                             </div>
                             </br>
 
                             <div class="col bg-white text-center">
                                 <strong><label for="formGroupPassEdit">Password</label></strong>
                                 <input type="password" class="form-control" id="formGroupPassEdit"
-                                       placeholder=""
-                                       th:field="*{password}"/>
+                                       placeholder=""/>
                             </div>
                             </br>
 
@@ -282,8 +276,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" value="Edit"/>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" value="Edit" onclick="updateUser('http://localhost:8080/api/v1/users/')">Edit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
                     </div>
                 </form>
             </div>

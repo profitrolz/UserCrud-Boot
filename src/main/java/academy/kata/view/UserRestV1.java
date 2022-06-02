@@ -5,10 +5,7 @@ import academy.kata.model.User;
 import academy.kata.service.RoleService;
 import academy.kata.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +30,12 @@ public class UserRestV1 {
     @GetMapping(path = "{userId}")
     public User getUserById(@PathVariable Long userId) {
         return userService.findById(userId).orElseThrow(UserNotFoundException::new);
+    }
+
+    @PostMapping(path = "{userId}")
+    public void updateUser(@PathVariable Long userId, @RequestBody User user) {
+        user.setId(userId);
+        userService.update(user);
     }
 
 
