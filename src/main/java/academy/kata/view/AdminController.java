@@ -6,7 +6,6 @@ import academy.kata.model.User;
 import academy.kata.service.RoleService;
 import academy.kata.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
