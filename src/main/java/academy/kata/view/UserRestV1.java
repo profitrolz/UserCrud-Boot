@@ -38,5 +38,8 @@ public class UserRestV1 {
         userService.update(user);
     }
 
-
+    @DeleteMapping(path = "{userId}")
+    public void deleteUser(@PathVariable Long userId) {
+        userService.deleteById(userId);
+    }
 }

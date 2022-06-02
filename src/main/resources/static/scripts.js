@@ -21,6 +21,7 @@ function createTable(objects) {
     table.innerHTML = "";
     for (let i = 0; i < objects.length; i++) {
         let tr = document.createElement("tr");
+        tr.setAttribute("id", "lineId" + objects[i].id);
         let th = document.createElement("th");
         th.setAttribute("scope", "row");
         th.appendChild(document.createTextNode(objects[i].id));
@@ -91,7 +92,8 @@ async function editButtonClick(root, userId) {
 
 async function updateUser(url) {
     let body = {};
-    url = url + document.getElementById("formGroupIdEdit").value;
+    const id = document.getElementById("formGroupIdEdit").value;
+    url = url + id;
     body.firstName = document.getElementById("formGroupFirstnameEdit").value;
     body.lastName = document.getElementById("formGroupLastnameEdit").value;
     body.login = document.getElementById("formGroupLoginEdit").value;
@@ -107,13 +109,18 @@ async function updateUser(url) {
 
     $('#editUser').modal('hide');
 
-    let promise = await fetch('http://localhost:8080/api/v1/users/', {
+    let promise = await fetch('http://localhost:8080/api/v1/users/' + id, {
         credentials: 'same-origin'
     });
 
     if (promise.ok) {
-        let objects = await promise.json();
-        createTable(objects);
+        let user = await promise.json();
+        let element = document.getElementById("lineId" + id);
+        element.cells[1].innerText = user.firstName;
+        element.cells[2].innerText = user.lastName;
+        element.cells[3].innerText = user.login;
+        element.cells[4].innerText = user.password;
+
     } else {
         $('#error-text').text("HTTP error " + promise.status);
         $('#myModal').modal('show');
