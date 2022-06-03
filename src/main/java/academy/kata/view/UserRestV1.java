@@ -14,12 +14,15 @@ import java.util.List;
 public class UserRestV1 {
 
     private final UserService userService;
-    private final RoleService roleService;
 
     @Autowired
-    public UserRestV1(UserService userService, RoleService roleService) {
+    public UserRestV1(UserService userService) {
         this.userService = userService;
-        this.roleService = roleService;
+    }
+
+    @PostMapping
+    public void saveUser(@RequestBody User user) {
+        userService.save(user);
     }
 
     @GetMapping
@@ -42,4 +45,5 @@ public class UserRestV1 {
     public void deleteUser(@PathVariable Long userId) {
         userService.deleteById(userId);
     }
+
 }

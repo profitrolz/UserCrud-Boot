@@ -25,17 +25,10 @@ public class AdminController {
 
     @GetMapping()
     public String getUsers(Model model) {
-        model.addAttribute("users", userService.findAll());
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("user", new User());
         model.addAttribute("currentUser", userService.getCurrentUser());
         return "admin";
-    }
-
-    @GetMapping("/deleteUser")
-    public String deleteUser(@RequestParam Optional<Integer> id, Map<String, Object> model) {
-        id.ifPresent(userService::deleteById);
-        return "redirect:/admin";
     }
 
     @GetMapping("/viewUser")
@@ -43,17 +36,5 @@ public class AdminController {
         model.addAttribute("user", userService.findById(id.orElseThrow(IllegalArgumentException::new))
                 .orElseThrow(UserNotFoundException::new));
         return "user";
-    }
-
-    @PostMapping(value = "/save")
-    public String save(@ModelAttribute("user") User user) {
-        userService.save(user);
-        return "redirect:/admin";
-    }
-
-    @PostMapping("/update")
-    public String updateUser(@ModelAttribute("user") User user) {
-        userService.update(user);
-        return "redirect:/admin";
     }
 }
