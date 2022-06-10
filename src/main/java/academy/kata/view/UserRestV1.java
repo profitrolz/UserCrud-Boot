@@ -2,7 +2,6 @@ package academy.kata.view;
 
 import academy.kata.exception.UserNotFoundException;
 import academy.kata.model.User;
-import academy.kata.service.RoleService;
 import academy.kata.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

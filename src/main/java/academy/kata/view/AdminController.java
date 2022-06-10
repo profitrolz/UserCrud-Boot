@@ -1,16 +1,11 @@
 package academy.kata.view;
 
-import academy.kata.dao.RoleRepo;
-import academy.kata.exception.UserNotFoundException;
 import academy.kata.model.User;
 import academy.kata.service.RoleService;
 import academy.kata.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("admin")
@@ -31,10 +26,4 @@ public class AdminController {
         return "admin";
     }
 
-    @GetMapping("/viewUser")
-    public String showUserForm(@RequestParam Optional<Long> id, Model model) {
-        model.addAttribute("user", userService.findById(id.orElseThrow(IllegalArgumentException::new))
-                .orElseThrow(UserNotFoundException::new));
-        return "user";
-    }
 }
